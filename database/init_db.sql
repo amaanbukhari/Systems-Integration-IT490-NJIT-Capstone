@@ -1,0 +1,114 @@
+USE this_is_music;
+
+-- USERS TABLE
+CREATE TABLE IF NOT EXISTS users (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   username VARCHAR(50) UNIQUE NOT NULL,
+   email VARCHAR(100) UNIQUE NOT NULL,
+   password_hash VARCHAR(255) NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- LOGIN HISTORY
+CREATE TABLE IF NOT EXISTS login_history (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   ip_address VARCHAR(50),
+   FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+-- SONGS TABLE
+CREATE TABLE IF NOT EXISTS songs (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   title VARCHAR(200) NOT NULL,
+   artist VARCHAR(200),
+   genre VARCHAR(100),
+   duration INT,
+   song_url TEXT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- PLAYLISTS
+CREATE TABLE IF NOT EXISTS playlists (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   name VARCHAR(100),
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- PLAYLIST SONGS
+CREATE TABLE IF NOT EXISTS playlist_songs (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   playlist_id INT,
+   song_id INT,
+   added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (playlist_id) REFERENCES playlists(id),
+   FOREIGN KEY (song_id) REFERENCES songs(id)
+);
+
+-- LISTENING HISTORY
+CREATE TABLE IF NOT EXISTS listening_history (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   song_id INT,
+   played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (user_id) REFERENCES users(id),
+   FOREIGN KEY (song_id) REFERENCES songs(id)
+);
+
+-- LIKES
+CREATE TABLE IF NOT EXISTS likes (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   song_id INT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   UNIQUE(user_id, song_id),
+   FOREIGN KEY (user_id) REFERENCES users(id),
+   FOREIGN KEY (song_id) REFERENCES songs(id)
+);
+
+-- CHAT CONVERSATIONS
+CREATE TABLE IF NOT EXISTS chats (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user1_id INT,
+   user2_id INT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (user1_id) REFERENCES users(id),
+   FOREIGN KEY (user2_id) REFERENCES users(id)
+);
+
+-- CHAT MESSAGES
+CREATE TABLE IF NOT EXISTS messages (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   chat_id INT,
+   sender_id INT,
+   message TEXT,
+   sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (chat_id) REFERENCES chats(id),
+   FOREIGN KEY (sender_id) REFERENCES users(id)
+);
+
+-- SHARED SONG LINKS
+CREATE TABLE IF NOT EXISTS shared_links (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   song_id INT,
+   user_id INT,
+   share_token VARCHAR(255) UNIQUE,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (song_id) REFERENCES songs(id),
+   FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- SONG METRICS (TRENDING)
+CREATE TABLE IF NOT EXISTS song_metrics (
+   song_id INT PRIMARY KEY,
+   play_count INT DEFAULT 0,
+   like_count INT DEFAULT 0,
+   last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (song_id) REFERENCES songs(id)
+);
+

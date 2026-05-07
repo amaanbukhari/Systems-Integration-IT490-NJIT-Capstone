@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Log In | THIS IS MUSIC</title>
+
+<style>
+:root{
+--black:#05060a;
+--black2:#0b1020;
+--blue:#1e5eff;
+--blueSoft:#6bb8ff;
+--text:#eaf2ff;
+--muted:rgba(234,242,255,.72);
+--line:rgba(207,233,255,.18);
+--shadow:0 18px 60px rgba(0,0,0,.45);
+--radius:18px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+min-height:100vh;
+font-family:system-ui,Segoe UI,Roboto,Arial;
+color:var(--text);
+background:
+radial-gradient(1000px 600px at 20% 10%, rgba(107,184,255,.22), transparent 60%),
+linear-gradient(180deg,var(--black),var(--black2));
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+}
+
+.authShell{
+width:100%;
+max-width:460px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:22px;
+justify-content:center;
+text-align:left;
+}
+
+.logo{
+width:42px;
+height:42px;
+border-radius:12px;
+background:linear-gradient(135deg,var(--blue),var(--blueSoft));
+}
+
+.authCard{
+padding:30px;
+border-radius:24px;
+background:rgba(255,255,255,.06);
+border:1px solid var(--line);
+box-shadow:var(--shadow);
+}
+
+h1{
+margin:0 0 10px;
+font-size:34px;
+text-align:center;
+}
+
+.sub{
+margin:0 0 24px;
+text-align:center;
+color:var(--muted);
+line-height:1.6;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+font-size:14px;
+}
+
+.inputWrap{
+margin-bottom:18px;
+}
+
+input{
+width:100%;
+padding:14px 16px;
+border-radius:14px;
+border:1px solid var(--line);
+background:rgba(0,0,0,.28);
+color:var(--text);
+outline:none;
+font-size:15px;
+}
+
+input::placeholder{
+color:rgba(234,242,255,.48);
+}
+
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:100%;
+padding:14px 18px;
+border-radius:999px;
+border:none;
+background:linear-gradient(135deg,var(--blue),var(--blueSoft));
+color:white;
+font-weight:700;
+font-size:15px;
+cursor:pointer;
+text-decoration:none;
+transition:.2s;
+}
+
+.btn:hover{
+filter:brightness(1.05);
+}
+
+.links{
+margin-top:18px;
+display:flex;
+flex-direction:column;
+gap:10px;
+text-align:center;
+}
+
+.links a{
+color:var(--text);
+text-decoration:none;
+}
+
+.links a:hover{
+text-decoration:underline;
+}
+
+.muted{
+color:var(--muted);
+font-size:14px;
+}
+
+.demoNote{
+margin-top:20px;
+padding:14px 16px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid var(--line);
+color:var(--muted);
+font-size:14px;
+line-height:1.6;
+}
+</style>
+</head>
+<body>
+<div class="authShell">
+  <div class="brand">
+    <div class="logo"></div>
+    <div>
+      <strong>THIS IS MUSIC</strong><br>
+      <span class="muted" style="font-size:12px;">Your hub for discovery, playlists, and vibes</span>
+    </div>
+  </div>
+
+  <div class="authCard">
+    <h1>Log In</h1>
+    <p class="sub">
+      Welcome back. Sign in to continue building your music experience.
+    </p>
+
+    <form method="POST" action="/login">
+      <div class="inputWrap">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="inputWrap">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="btn">Log In</button>
+    </form>
+
+    <div class="links">
+      <a href="/register">Need an account? Create one</a>
+      <a href="/" class="muted">Back Home</a>
+    </div>
+
+    <div class="demoNote">
+      Milestone 3 authentication can plug directly into this page. The form already posts to <strong>/login</strong>.
+    </div>
+  </div>
+</div>
+</body>
+</html>

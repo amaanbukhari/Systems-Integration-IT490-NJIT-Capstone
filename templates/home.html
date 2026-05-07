@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home | THIS IS MUSIC</title>
+<style>
+:root{
+  --bg:#07111f;
+  --bg2:#0c1830;
+  --panel:rgba(255,255,255,.06);
+  --panel2:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.12);
+  --text:#f5f7fb;
+  --muted:#9db0c7;
+  --accent:#7c3aed;
+  --accent2:#22c55e;
+  --danger:#ef4444;
+  --shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(124,58,237,.25), transparent 25%),
+    radial-gradient(circle at top right, rgba(59,130,246,.18), transparent 25%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+  color:var(--text);
+  min-height:100%;
+}
+
+a{color:inherit;text-decoration:none}
+button,input,select{
+  font:inherit;
+}
+
+.shell{
+  width:min(1200px,92%);
+  margin:0 auto;
+  padding:28px 0 50px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:24px;
+  padding:18px 20px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:rgba(7,17,31,.72);
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+  flex-wrap:wrap;
+}
+
+.brandWrap{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.brand{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:.03em;
+}
+
+.sub{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.userPill{
+  padding:10px 14px;
+  border-radius:999px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:#dbeafe;
+  white-space:nowrap;
+}
+
+.navBtn{
+  border:none;
+  border-radius:14px;
+  padding:11px 16px;
+  cursor:pointer;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--line);
+  transition:.2s transform,.2s background;
+}
+
+.navBtn:hover{
+  transform:translateY(-1px);
+  background:var(--panel2);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.card{
+  background:rgba(10,23,42,.72);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+}
+
+.heroMain{
+  padding:26px;
+}
+
+.heroMain h1{
+  margin:0 0 10px;
+  font-size:38px;
+  line-height:1.04;
+}
+
+.heroMain p{
+  margin:0 0 20px;
+  color:var(--muted);
+  max-width:780px;
+  line-height:1.55;
+}
+
+.searchRow{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.searchInput{
+  flex:1;
+  min-width:260px;
+  border:none;
+  outline:none;
+  padding:15px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  color:var(--text);
+  border:1px solid transparent;
+}
+
+.searchInput:focus{
+  border-color:rgba(124,58,237,.75);
+}
+
+.searchBtn{
+  border:none;
+  cursor:pointer;
+  border-radius:16px;
+  padding:15px 18px;
+  color:white;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  font-weight:700;
+}
+
+.heroSide{
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  justify-content:center;
+}
+
+.stat{
+  padding:16px;
+  border-radius:18px;
+  background:var(--panel);
+  border:1px solid var(--line);
+}
+
+.statLabel{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.statValue{
+  font-size:28px;
+  font-weight:800;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:18px;
+}
+
+.section{
+  padding:22px;
+}
+
+.section h2{
+  margin:0 0 16px;
+  font-size:24px;
+}
+
+.sectionTitleRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.resultsBlock{
+  margin-top:8px;
+}
+
+.songList{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.songCard{
+  display:flex;
+  gap:16px;
+  padding:16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  align-items:flex-start;
+}
+
+.songArt{
+  width:96px;
+  height:96px;
+  border-radius:16px;
+  object-fit:cover;
+  background:rgba(255,255,255,.08);
+  flex-shrink:0;
+}
+
+.songInfo{
+  flex:1;
+  min-width:0;
+}
+
+.songTitle{
+  margin:0 0 6px;
+  font-size:20px;
+  line-height:1.2;
+}
+
+.songMeta{
+  margin:0 0 10px;
+  color:var(--muted);
+  line-height:1.45;
+}
+
+.songActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.miniBtn{
+  border:none;
+  cursor:pointer;
+  padding:10px 13px;
+  border-radius:14px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+.miniBtn:hover{
+  background:var(--panel2);
+}
+
+.miniBtn.primary{
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  border:none;
+}
+
+.miniBtn.success{
+  background:linear-gradient(135deg,#059669,#22c55e);
+  border:none;
+}
+
+.miniBtn.danger{
+  background:linear-gradient(135deg,#dc2626,#ef4444);
+  border:none;
+}
+
+.miniSelect{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.08);
+  color:var(--text);
+  min-width:180px;
+}
+
+.playlistList, .likedList{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.sideCard{
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+}
+
+.sideCard h3{
+  margin:0 0 8px;
+  font-size:17px;
+}
+
+.sideCard p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.45;
+}
+
+.empty{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px dashed var(--line);
+  color:var(--muted);
+}
+
+.notice{
+  margin-top:14px;
+  min-height:24px;
+  color:#c7d2fe;
+  font-size:14px;
+}
+
+audio{
+  width:100%;
+  margin-top:12px;
+  border-radius:12px;
+}
+
+@media (max-width: 960px){
+  .hero,
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .heroMain h1{
+    font-size:30px;
+  }
+
+  .songCard{
+    flex-direction:column;
+  }
+
+  .songArt{
+    width:100%;
+    height:auto;
+    max-width:180px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brandWrap">
+      <div class="brand">THIS IS MUSIC</div>
+      <div class="sub">Search songs, like tracks, and build playlists</div>
+    </div>
+
+    <div class="topActions">
+      <div class="userPill">Logged in as <strong>{{username}}</strong></div>
+      <a class="navBtn" href="/playlists">Playlists Page</a>
+      <a class="navBtn" href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="card heroMain">
+      <h1>Find songs you want to keep on repeat.</h1>
+      <p>
+        Search tracks, preview music, like your favorites, and drop songs into playlists without leaving the page.
+        This is your music control deck, not a dusty command prompt in a hoodie.
+      </p>
+
+      <div class="searchRow">
+        <input id="searchInput" class="searchInput" type="text" placeholder="Search by song, artist, or album">
+        <button id="searchButton" class="searchBtn">Search</button>
+      </div>
+
+      <div id="notice" class="notice"></div>
+    </div>
+
+    <div class="card heroSide">
+      <div class="stat">
+        <div class="statLabel">Liked Songs</div>
+        <div id="likedCount" class="statValue">0</div>
+      </div>
+      <div class="stat">
+        <div class="statLabel">Playlists</div>
+        <div id="playlistCount" class="statValue">0</div>
+      </div>
+      <div class="stat">
+        <div class="statLabel">Quick Action</div>
+        <button id="createPlaylistBtn" class="miniBtn primary" style="width:100%">Create Playlist</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card section">
+      <div class="sectionTitleRow">
+        <h2>Search Results</h2>
+        <span class="muted" id="resultsMeta">Start with a search.</span>
+      </div>
+      <div class="resultsBlock">
+        <div id="songResults" class="songList">
+          <div class="empty">Your search results will appear here.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <div class="card section">
+        <div class="sectionTitleRow">
+          <h2>Liked Songs</h2>
+        </div>
+        <div id="likedSongs" class="likedList">
+          <div class="empty">No liked songs yet.</div>
+        </div>
+      </div>
+
+      <div class="card section">
+        <div class="sectionTitleRow">
+          <h2>Playlists</h2>
+        </div>
+        <div id="playlists" class="playlistList">
+          <div class="empty">No playlists yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+const songResultsContainer = document.getElementById("songResults");
+const likedSongsContainer = document.getElementById("likedSongs");
+const playlistsContainer = document.getElementById("playlists");
+const notice = document.getElementById("notice");
+const resultsMeta = document.getElementById("resultsMeta");
+const likedCount = document.getElementById("likedCount");
+const playlistCount = document.getElementById("playlistCount");
+const createPlaylistBtn = document.getElementById("createPlaylistBtn");
+
+let currentLikes = [];
+let currentPlaylists = [];
+let currentResults = [];
+
+function setNotice(message) {
+  notice.textContent = message || "";
+}
+
+function escapeHtml(value) {
+  const div = document.createElement("div");
+  div.textContent = value ?? "";
+  return div.innerHTML;
+}
+
+async function fetchJSON(url, options = {}) {
+  const response = await fetch(url, options);
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || "Request failed");
+  }
+  return data;
+}
+
+function renderLikedSongs() {
+  likedCount.textContent = String(currentLikes.length);
+
+  if (!currentLikes.length) {
+    likedSongsContainer.innerHTML = `<div class="empty">No liked songs yet.</div>`;
+    return;
+  }
+
+  likedSongsContainer.innerHTML = currentLikes.map(song => `
+    <div class="sideCard">
+      <h3>${escapeHtml(song.trackName)}</h3>
+      <p>${escapeHtml(song.artistName)}${song.collectionName ? ` • ${escapeHtml(song.collectionName)}` : ""}</p>
+    </div>
+  `).join("");
+}
+
+function renderPlaylists() {
+  playlistCount.textContent = String(currentPlaylists.length);
+
+  if (!currentPlaylists.length) {
+    playlistsContainer.innerHTML = `<div class="empty">No playlists yet.</div>`;
+    return;
+  }
+
+  playlistsContainer.innerHTML = currentPlaylists.map(playlist => `
+    <div class="sideCard">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+        <div>
+          <h3>${escapeHtml(playlist.name)}</h3>
+          <p>${playlist.songs.length} song${playlist.songs.length === 1 ? "" : "s"}</p>
+        </div>
+        <button class="miniBtn danger" onclick="deletePlaylist('${playlist.id}')">Delete</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function playlistOptionsMarkup() {
+  if (!currentPlaylists.length) {
+    return `<option value="">No playlists</option>`;
+  }
+
+  return `<option value="">Select playlist</option>` + currentPlaylists.map(playlist => `
+    <option value="${playlist.id}">${escapeHtml(playlist.name)}</option>
+  `).join("");
+}
+
+function isLiked(song) {
+  return currentLikes.some(item => String(item.trackId) === String(song.trackId));
+}
+
+function renderSearchResults() {
+  if (!currentResults.length) {
+    songResultsContainer.innerHTML = `<div class="empty">No songs found. Try a different search.</div>`;
+    return;
+  }
+
+  songResultsContainer.innerHTML = currentResults.map((song, index) => `
+    <div class="songCard">
+      <img class="songArt" src="${song.artworkUrl100 || ""}" alt="${escapeHtml(song.trackName)} album art">
+      <div class="songInfo">
+        <h3 class="songTitle">${escapeHtml(song.trackName)}</h3>
+        <p class="songMeta">
+          ${escapeHtml(song.artistName)}
+          ${song.collectionName ? ` • ${escapeHtml(song.collectionName)}` : ""}
+          ${song.primaryGenreName ? ` • ${escapeHtml(song.primaryGenreName)}` : ""}
+        </p>
+
+        <div class="songActions">
+          <button class="miniBtn ${isLiked(song) ? "success" : ""}" onclick="toggleLike(${index})">
+            ${isLiked(song) ? "Liked" : "Like"}
+          </button>
+
+          <select class="miniSelect" id="playlistSelect-${index}">
+            ${playlistOptionsMarkup()}
+          </select>
+
+          <button class="miniBtn primary" onclick="addSongToPlaylist(${index})">Add to Playlist</button>
+        </div>
+
+        ${song.previewUrl ? `<audio controls src="${song.previewUrl}"></audio>` : ""}
+      </div>
+    </div>
+  `).join("");
+}
+
+async function loadLikes() {
+  const data = await fetchJSON("/api/likes");
+  currentLikes = data.likes || [];
+  renderLikedSongs();
+}
+
+async function loadPlaylists() {
+  const data = await fetchJSON("/api/playlists");
+  currentPlaylists = data.playlists || [];
+  renderPlaylists();
+  renderSearchResults();
+}
+
+async function performSearch() {
+  const q = searchInput.value.trim();
+  if (!q) {
+    setNotice("Type something to search.");
+    return;
+  }
+
+  setNotice("Searching...");
+  resultsMeta.textContent = `Searching for “${q}”...`;
+
+  try {
+    const data = await fetchJSON(`/api/search?q=${encodeURIComponent(q)}`);
+    currentResults = data.results || [];
+    renderSearchResults();
+    resultsMeta.textContent = `${currentResults.length} result${currentResults.length === 1 ? "" : "s"} for “${q}”`;
+    setNotice(data.error ? data.error : "Search complete.");
+  } catch (error) {
+    currentResults = [];
+    renderSearchResults();
+    resultsMeta.textContent = "Search failed.";
+    setNotice(error.message);
+  }
+}
+
+async function toggleLike(index) {
+  const song = currentResults[index];
+  if (!song) return;
+
+  try {
+    const data = await fetchJSON("/api/like", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({song})
+    });
+
+    currentLikes = data.likes || [];
+    renderLikedSongs();
+    renderSearchResults();
+    setNotice(data.liked ? "Song added to liked songs." : "Song removed from liked songs.");
+  } catch (error) {
+    setNotice(error.message);
+  }
+}
+
+async function createPlaylist() {
+  const name = prompt("Enter a playlist name:");
+  if (!name) return;
+
+  try {
+    const data = await fetchJSON("/api/playlists/create", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({name})
+    });
+
+    currentPlaylists = data.playlists || [];
+    renderPlaylists();
+    renderSearchResults();
+    setNotice(`Playlist "${name}" created.`);
+  } catch (error) {
+    setNotice(error.message);
+  }
+}
+
+async function addSongToPlaylist(index) {
+  const song = currentResults[index];
+  const select = document.getElementById(`playlistSelect-${index}`);
+  if (!song || !select) return;
+
+  const playlistId = select.value;
+  if (!playlistId) {
+    setNotice("Choose a playlist first.");
+    return;
+  }
+
+  try {
+    const data = await fetchJSON("/api/playlists/add-song", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({playlistId, song})
+    });
+
+    currentPlaylists = data.playlists || [];
+    renderPlaylists();
+    renderSearchResults();
+    setNotice(`Added "${song.trackName}" to the playlist.`);
+  } catch (error) {
+    setNotice(error.message);
+  }
+}
+
+async function deletePlaylist(playlistId) {
+  if (!confirm("Delete this playlist?")) return;
+
+  try {
+    const data = await fetchJSON("/api/playlists/delete", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({playlistId})
+    });
+
+    currentPlaylists = data.playlists || [];
+    renderPlaylists();
+    renderSearchResults();
+    setNotice("Playlist deleted.");
+  } catch (error) {
+    setNotice(error.message);
+  }
+}
+
+searchButton.addEventListener("click", performSearch);
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    performSearch();
+  }
+});
+createPlaylistBtn.addEventListener("click", createPlaylist);
+
+async function init() {
+  try {
+    await Promise.all([loadLikes(), loadPlaylists()]);
+    setNotice("Ready.");
+  } catch (error) {
+    setNotice(error.message);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
